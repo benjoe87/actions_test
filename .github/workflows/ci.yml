@@ -1,0 +1,20 @@
+jobs:
+  macos-ci:
+    runs-on: macos-latest
+    name: MacOS CI (OTP 23)
+    steps:
+      - name: Install OTP + rebar3
+        run: brew install erlang@23 rebar3
+      - name: Show otp version
+        run: erl -version
+      - name: Set erlang@23 to default
+        run: echo '/usr/local/opt/erlang@23/bin' >> $GITHUB_PATH
+      - name: Show otp version
+        run: erl -version
+      - name: Run rebar3
+        run: rebar3
+        env:
+          LDFLAGS: "-L/usr/local/opt/erlang@23/lib"
+name: Test CI
+on:
+  push: {}
